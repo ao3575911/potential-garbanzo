@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=77,<83"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "circuit-perth-bot"
+version = "1.0.0"
+description = "Self-hosted Telegram reputation, anonymous posting and moderation"
+requires-python = ">=3.12"
+dependencies = [
+  "python-telegram-bot[rate-limiter]==22.8",
+  "aiosqlite==0.22.1",
+  "python-dotenv==1.2.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.0.2", "pytest-asyncio==1.3.0", "ruff==0.15.0"]
+
+[project.scripts]
+circuit-bot = "circuit_bot.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["circuit_bot*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC"]
+ignore = ["E501", "ASYNC240"]
